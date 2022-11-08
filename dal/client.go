@@ -7,14 +7,18 @@ import (
 	"metadata/conf"
 )
 
-var MysqlDB *gorm.DB
+var mysqlDB *gorm.DB
 
 func InitMysqlDb() {
 	dsn := fmt.Sprintf(conf.GetConf().MysqlTemplate, conf.GetConf().Mysql.Username, conf.GetConf().Mysql.Passwd,
-		conf.GetConf().Mysql.Host, conf.GetConf().Mysql.Passwd, conf.GetConf().Mysql.Database)
+		conf.GetConf().Mysql.Host, conf.GetConf().Mysql.Port, conf.GetConf().Mysql.Database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	MysqlDB = db
+	mysqlDB = db
+}
+
+func GetDb() *gorm.DB {
+	return mysqlDB
 }

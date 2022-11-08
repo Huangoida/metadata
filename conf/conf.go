@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-var config *ConfigStruct
+var Config *ConfigStruct
 
 type MysqlStruct struct {
 	Host     string
@@ -22,7 +22,7 @@ type ConfigStruct struct {
 }
 
 func GetConf() *ConfigStruct {
-	return config
+	return Config
 }
 
 func ParseConf() {
@@ -43,5 +43,5 @@ func ParseConf() {
 	if err != nil {
 		panic(err)
 	}
-	config = config
+	Config = config
 }

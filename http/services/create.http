@@ -1,0 +1,41 @@
+POST http://127.0.0.1:8080/v1/services/create
+Content-Type: application/json
+
+{
+  "Name": "123",
+  "Host": "127.0.0.1",
+  "Port": 8080,
+  "Describe": "123242"
+}
+
+###
+POST http://127.0.0.1:8080/v1/services/create
+Content-Type: application/json
+
+{
+  "Name": "",
+  "Host": "127.0.0.1",
+  "Port": 8080,
+  "Describe": "123242"
+}
+###
+
+POST http://127.0.0.1:8080/v1/services/create
+Content-Type: application/json
+
+{
+  "Name": "123",
+  "Host": "",
+  "Port": 8080,
+  "Describe": "123242"
+}
+###
+POST http://127.0.0.1:8080/v1/services/create
+Content-Type: application/json
+
+{
+  "Name": "123",
+  "Host": "127.0.0.1",
+  "Port": 0,
+  "Describe": "123242"
+}

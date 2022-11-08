@@ -1,0 +1,12 @@
+POST http://127.0.0.1:8080/v1/API/create
+Content-Type: application/json
+
+{
+  "Name":"createApi",
+  "Path" : "/v1/api/create",
+  "ServiceId": 1585207888714928128,
+  "Protocol": "http",
+  "Method": "POST",
+  "ConnectTimeout": 100000,
+  "Retries": 1
+}
