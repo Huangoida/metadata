@@ -2,9 +2,9 @@ POST http://127.0.0.1:8080/v1/API/create
 Content-Type: application/json
 
 {
-  "Name":"createApi",
-  "Path" : "/v1/api/create",
-  "ServiceId": 1585207888714928128,
+  "Name":"postPing",
+  "Path" : "/postPing",
+  "ServiceId": 1589949221023256576,
   "Protocol": "http",
   "Method": "POST",
   "ConnectTimeout": 100000,

@@ -71,11 +71,10 @@ func List(c *gin.Context) {
 			}
 			body := generateBody(0, parameterBodyList)
 			res = append(res, map[string]interface{}{
-				"Type":         parameter.Type,
-				"Require":      parameter.Require,
-				"Content_type": parameter.ContentType,
-				"BodyType":     body,
-				"Boyd":         parameter.Body,
+				"Type":     parameter.Type,
+				"Require":  parameter.Require,
+				"BodyType": body,
+				"Boyd":     parameter.Body,
 			})
 		} else {
 			res = append(res, map[string]interface{}{

@@ -13,13 +13,12 @@ import (
 )
 
 type CreateParametersRequest struct {
-	ApiId       int64  `json:"ApiId" binding:"required"`
-	Type        string `json:"Type" binding:"required"`
-	Key         string `json:"Key"`
-	Value       string `json:"Value"`
-	Require     bool   `json:"Require"`
-	ContentType string `json:"ContentType"`
-	Body        string `json:"Body"`
+	ApiId   int64  `json:"ApiId" binding:"required"`
+	Type    string `json:"Type" binding:"required"`
+	Key     string `json:"Key"`
+	Value   string `json:"Value"`
+	Require bool   `json:"Require"`
+	Body    string `json:"Body"`
 }
 
 func Create(c *gin.Context) {
@@ -41,14 +40,13 @@ func Create(c *gin.Context) {
 		return
 	}
 	parmeter := model.ParametersStruct{
-		Id:          util.GenerateId(),
-		ApiId:       parameterRequest.ApiId,
-		Key:         parameterRequest.Key,
-		Type:        parameterRequest.Type,
-		Value:       parameterRequest.Value,
-		Require:     parameterRequest.Require,
-		ContentType: parameterRequest.ContentType,
-		Body:        parameterRequest.Body,
+		Id:      util.GenerateId(),
+		ApiId:   parameterRequest.ApiId,
+		Key:     parameterRequest.Key,
+		Type:    parameterRequest.Type,
+		Value:   parameterRequest.Value,
+		Require: parameterRequest.Require,
+		Body:    parameterRequest.Body,
 	}
 
 	var bodyList []model.ParametersBodyStruct
@@ -108,14 +106,13 @@ func queryTypeDealWith(c *gin.Context, parameterRequest CreateParametersRequest)
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 	}
 	parmeter := model.ParametersStruct{
-		Id:          util.GenerateId(),
-		ApiId:       parameterRequest.ApiId,
-		Key:         parameterRequest.Key,
-		Type:        parameterRequest.Type,
-		Value:       parameterRequest.Value,
-		Require:     parameterRequest.Require,
-		ContentType: parameterRequest.ContentType,
-		Body:        parameterRequest.Body,
+		Id:      util.GenerateId(),
+		ApiId:   parameterRequest.ApiId,
+		Key:     parameterRequest.Key,
+		Type:    parameterRequest.Type,
+		Value:   parameterRequest.Value,
+		Require: parameterRequest.Require,
+		Body:    parameterRequest.Body,
 	}
 
 	err := dal.CreateParameters(c, parmeter)

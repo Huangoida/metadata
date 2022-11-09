@@ -2,10 +2,10 @@ POST http://127.0.0.1:8080/v1/services/create
 Content-Type: application/json
 
 {
-  "Name": "123",
+  "Name": "test",
   "Host": "127.0.0.1",
-  "Port": 8080,
-  "Describe": "123242"
+  "Port": 8081,
+  "Describe": "测试services"
 }
 
 ###

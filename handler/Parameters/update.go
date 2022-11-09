@@ -18,7 +18,6 @@ type UpdateParameterRequest struct {
 	Value       string `json:"Value"`
 	IsRequire   bool   `json:"IsRequire"`
 	Require     bool   `json:"Require"`
-	ContentType string `json:"ContentType"`
 	Body        string `json:"Body"`
 }
 
@@ -52,11 +51,6 @@ func Update(c *gin.Context) {
 				util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 				return
 			}
-			if updateParameterRequest.ContentType == "" {
-				logrus.Errorf("parameter invalid %v", err.Error())
-				util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
-				return
-			}
 		} else {
 			if updateParameterRequest.Key == "" {
 				logrus.Errorf("parameter invalid %v", err.Error())
@@ -79,9 +73,6 @@ func Update(c *gin.Context) {
 		parameter.Value = updateParameterRequest.Value
 	}
 
-	if updateParameterRequest.ContentType != "" && parameter.Type == "body" {
-		parameter.ContentType = updateParameterRequest.ContentType
-	}
 	if updateParameterRequest.Body != "" && parameter.Body == "body" {
 		parameter.Body = updateParameterRequest.Body
 		body := make(map[string]interface{})

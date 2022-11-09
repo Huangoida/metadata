@@ -10,3 +10,15 @@ Content-Type: application/json
   "ContentType": "application/json",
   "Body": "{\"Name\": \"123\",\"Host\": \"127.0.0.1\",\"Port\": 8080,\"Describe\": \"123242\",\"test\": {\"test1\": \"23123\",\"test2\": 12312,\"test3\": true}}"
 }
+
+###
+POST http://127.0.0.1:8080/v1/parameters/create
+Content-Type: application/json
+
+{
+  "ApiId": 1589949538863419392,
+  "Type": "query",
+  "Key": "id",
+  "Value": "string",
+  "Require": true
+}

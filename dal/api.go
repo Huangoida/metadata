@@ -6,7 +6,7 @@ import (
 )
 
 func CreateApi(ctx context.Context, api model.ApiStruct) error {
-	err := GetDb().WithContext(ctx).Create(&api).Error
+	err := GetDb().WithContext(ctx).Debug().Create(&api).Error
 	if err != nil {
 		return err
 	}
