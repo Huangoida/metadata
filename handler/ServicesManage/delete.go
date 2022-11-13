@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 )
@@ -19,7 +19,7 @@ func Delete(c *gin.Context) {
 	}
 
 	var servicesList []model.ServicesStruct
-	err, count := dal.ListServices(c, 0, 0, "", "", "", idstr, &servicesList)
+	err, count := mysql.ListServices(c, 0, 0, "", "", "", idstr, &servicesList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -30,7 +30,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 	services := servicesList[0]
-	err = dal.DeleteServices(c, services)
+	err = mysql.DeleteServices(c, services)
 	if err != nil {
 		logrus.Errorf("delete failed %v", err.Error())
 		util.ResponseError(c, 500, constant.DELETE_FAILED, "delete failed")

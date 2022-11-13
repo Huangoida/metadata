@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 )
@@ -29,7 +29,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var parameterList []model.ParametersStruct
-	err, count := dal.ListParameter(c, 0, 0, updateParameterRequest.ApiId, updateParameterRequest.ParameterId, &parameterList)
+	err, count := mysql.ListParameter(c, 0, 0, updateParameterRequest.ApiId, updateParameterRequest.ParameterId, &parameterList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -89,13 +89,13 @@ func Update(c *gin.Context) {
 			util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 			return
 		}
-		err := dal.DeleteParameterBody(c, parameter.Id)
+		err := mysql.DeleteParameterBody(c, parameter.Id)
 		if err != nil {
 			logrus.Errorf("delete failed %v", err.Error())
 			util.ResponseError(c, 500, constant.DELETE_FAILED, "delete failed")
 			return
 		}
-		err = dal.CreateParametersBody(c, bodyList)
+		err = mysql.CreateParametersBody(c, bodyList)
 		if err != nil {
 			logrus.Errorf("create ParametersBody failed %v", err.Error())
 			util.ResponseError(c, 500, constant.CREATE_FAILED, "create ParametersBody failed")
@@ -103,7 +103,7 @@ func Update(c *gin.Context) {
 		}
 	}
 
-	err = dal.UpdateParameter(c, parameter)
+	err = mysql.UpdateParameter(c, parameter)
 	if err != nil {
 		logrus.Errorf("update api failed %v", err.Error())
 		util.ResponseError(c, 500, constant.UPDATE_FAILED, "update api failed")

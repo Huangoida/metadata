@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 )
@@ -31,7 +31,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var apiList []model.ApiStruct
-	err, count := dal.ListApi(c, 0, 0, "", "", "", apiResponse.Id, apiResponse.ServiceId, &apiList)
+	err, count := mysql.ListApi(c, 0, 0, "", "", "", apiResponse.Id, apiResponse.ServiceId, &apiList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -67,7 +67,7 @@ func Update(c *gin.Context) {
 		api.Retries = apiResponse.Retries
 	}
 
-	err = dal.UpdateApi(c, api)
+	err = mysql.UpdateApi(c, api)
 	if err != nil {
 		logrus.Errorf("update api failed %v", err.Error())
 		util.ResponseError(c, 500, constant.UPDATE_FAILED, "update api failed")

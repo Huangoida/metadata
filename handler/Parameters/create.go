@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 )
@@ -56,7 +56,7 @@ func Create(c *gin.Context) {
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 		return
 	}
-	err = dal.CreateParameterTransaction(c, parmeter, bodyList)
+	err = mysql.CreateParameterTransaction(c, parmeter, bodyList)
 	if err != nil {
 		logrus.Errorf("create ParametersBodyStruct failed %v", err.Error())
 		util.ResponseError(c, 500, constant.CREATE_FAILED, "create ParametersBodyStruct failed")
@@ -115,7 +115,7 @@ func queryTypeDealWith(c *gin.Context, parameterRequest CreateParametersRequest)
 		Body:    parameterRequest.Body,
 	}
 
-	err := dal.CreateParameters(c, parmeter)
+	err := mysql.CreateParameters(c, parmeter)
 	if err != nil {
 		logrus.Errorf("create Parameter failed %v", err.Error())
 		util.ResponseError(c, 500, constant.CREATE_FAILED, "create Parameter failed")
