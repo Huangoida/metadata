@@ -4,13 +4,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"io"
 	"metadata/conf"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/util"
 )
 
 func InitConfig() {
 	conf.ParseConf()
-	dal.InitMysqlDb()
+	mysql.InitMysqlDb()
 	initGlobalLogger()
 }
 

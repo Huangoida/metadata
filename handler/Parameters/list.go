@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 	"strconv"
@@ -35,7 +35,7 @@ func List(c *gin.Context) {
 		return
 	}
 	var apiList []model.ApiStruct
-	err, count := dal.ListApi(c, page, size, "", "", "", apiId, 0, &apiList)
+	err, count := mysql.ListApi(c, page, size, "", "", "", apiId, 0, &apiList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -46,7 +46,7 @@ func List(c *gin.Context) {
 		util.ResponseError(c, 400, constant.SEARCH_NOT_FOUND, "api not found")
 	}
 	var parameterList []model.ParametersStruct
-	err, count = dal.ListParameter(c, page, size, apiId, parameterId, &parameterList)
+	err, count = mysql.ListParameter(c, page, size, apiId, parameterId, &parameterList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -63,7 +63,7 @@ func List(c *gin.Context) {
 	for _, parameter := range parameterList {
 		if parameter.Type == "body" {
 			var parameterBodyList []model.ParametersBodyStruct
-			err, _ = dal.ListParameterBody(c, parameterId, &parameterBodyList)
+			err, _ = mysql.ListParameterBody(c, parameterId, &parameterBodyList)
 			if err != nil {
 				logrus.Errorf("parameter invalid %v", err.Error())
 				util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

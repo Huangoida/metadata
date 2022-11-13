@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 	"strconv"
@@ -45,7 +45,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 	var parameterList []model.ParametersStruct
-	err, count := dal.ListParameter(c, 0, 0, apiId, parameterId, &parameterList)
+	err, count := mysql.ListParameter(c, 0, 0, apiId, parameterId, &parameterList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -59,14 +59,14 @@ func Delete(c *gin.Context) {
 
 	parameter := parameterList[0]
 	if parameter.Type == "body" {
-		err := dal.DeleteParameterBody(c, parameter.Id)
+		err := mysql.DeleteParameterBody(c, parameter.Id)
 		if err != nil {
 			logrus.Errorf("delete failed %v", err.Error())
 			util.ResponseError(c, 500, constant.DELETE_FAILED, "delete failed")
 			return
 		}
 	}
-	err = dal.DeleteParameter(c, parameter)
+	err = mysql.DeleteParameter(c, parameter)
 	if err != nil {
 		logrus.Errorf("delete failed %v", err.Error())
 		util.ResponseError(c, 500, constant.DELETE_FAILED, "delete failed")

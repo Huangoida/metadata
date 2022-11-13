@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 	"strconv"
@@ -27,7 +27,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var servicesList []model.ServicesStruct
-	err, count := dal.ListServices(c, 0, 0, "", "", "", strconv.FormatInt(servicesResponse.Id, 10), &servicesList)
+	err, count := mysql.ListServices(c, 0, 0, "", "", "", strconv.FormatInt(servicesResponse.Id, 10), &servicesList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -50,7 +50,7 @@ func Update(c *gin.Context) {
 	if servicesResponse.Describe != "" {
 		services.Describes = servicesResponse.Describe
 	}
-	err = dal.UpdateServices(c, services)
+	err = mysql.UpdateServices(c, services)
 	if err != nil {
 		logrus.Errorf("update service failed %v", err.Error())
 		util.ResponseError(c, 500, constant.UPDATE_FAILED, "update service failed")
