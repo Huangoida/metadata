@@ -1,0 +1,8 @@
+mongo:
+  host: 127.0.0.1
+  port: 27017
+  username: root
+  passwd: 123456
+  database: pokemon
+
+MysqlTemplate: "mongodb://%s:%s@%s:%d"

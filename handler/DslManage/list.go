@@ -1,8 +1,8 @@
-package Dslmanage
+package DslManage
 
 import (
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mongo"
 	"metadata/model"
 	"metadata/util"
 	"strconv"
@@ -30,9 +30,10 @@ func List(c *gin.Context) {
 
 	name := c.Query("Name")
 	method := c.Query("Method")
+	content := c.Query("Content")
 	var dslList []model.DslInfoStruct
 
-	err, count := dal.ListDslInfo(c, page, size, path, name, method, id, serviceId, &apiList)
+	err, count := mongo.ListDslInfo(c, page, size, path, name, method, content, id, &dslList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -41,6 +42,6 @@ func List(c *gin.Context) {
 
 	util.ResponseSuccess(c, map[string]interface{}{
 		"count": count,
-		"res":   apiList,
+		"res":   dslList,
 	})
 }

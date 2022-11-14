@@ -7,14 +7,14 @@ import (
 )
 
 type DslInfoStruct struct {
-	Id        int64          `gorm:"column:id"`
-	Name      string         `gorm:"column:name"`
-	Path      string         `gorm:"column:path"`
-	Content   string         `gorm:"column:content"`
-	Method    string         `gorm:"column:method"`
-	CreatedAt time.Time      `gorm:"created_at;<-:create"`
-	UpdatedAt time.Time      `gorm:"updated_at;<-:update"`
-	Deleted   gorm.DeletedAt `gorm:"deleted"`
+	Id        int64          `gorm:"column:id" bson:"_id"`
+	Name      string         `gorm:"column:name" bson:"name"`
+	Path      string         `gorm:"column:path" bson:"path"`
+	Content   string         `gorm:"column:content" bson:"content"`
+	Method    string         `gorm:"column:method" bson:"method"`
+	CreatedAt time.Time      `gorm:"created_at;<-:create" bson:"created_at"`
+	UpdatedAt time.Time      `gorm:"updated_at;<-:update" bson:"updated_at"`
+	Deleted   gorm.DeletedAt `gorm:"deleted" bson:"deleted"`
 }
 
 func (*DslInfoStruct) TableName() string {

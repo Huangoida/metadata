@@ -1,8 +1,8 @@
-package Dslmanage
+package DslManage
 
 import (
 	"metadata/constant"
-	"metadata/dal"
+	"metadata/dal/mongo"
 	"metadata/model"
 	"metadata/util"
 
@@ -32,10 +32,10 @@ func Create(c *gin.Context) {
 		Method:  dslRequest.Method,
 	}
 
-	err := dal.CreateDslInfo(c, dsl)
+	err := mongo.CreateDslInfo(c, dsl)
 	if err != nil {
 		logrus.Errorf("create Dsl info failed %v", err.Error())
-		util.ResponseError(c, 500, constant.CREATE_FAILED, "create services failed")
+		util.ResponseError(c, 500, constant.CREATE_FAILED, "create Dsl info failed")
 		return
 	}
 
