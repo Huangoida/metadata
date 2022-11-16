@@ -7,9 +7,9 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Config *ConfigStruct
+var Config2 *Config2Struct
 
-type MysqlStruct struct {
+type MongoStruct struct {
 	Host     string
 	Port     string
 	Username string
@@ -17,34 +17,34 @@ type MysqlStruct struct {
 	Database string
 }
 
-type ConfigStruct struct {
-	Mysql         MysqlStruct
-	MysqlTemplate string
+type Config2Struct struct {
+	Mongo         MysqlStruct
+	MongoTemplate string
 }
 
-func GetConf() *ConfigStruct {
-	return Config
+func GetConf2() *Config2Struct {
+	return Config2
 }
 
-func ParseConf() {
+func ParseConf2() {
 	v := viper.New()
 	pwd, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	// environment := os.Getenv("environment")
-	environment := "local"
+	os.Setenv("env-mongo", "mongo")
+	environment := os.Getenv("env-mongo")
+
 	absolutePath := filepath.Join(pwd, "conf", environment+".yaml")
-	println(absolutePath)
 	v.SetConfigFile(absolutePath)
 	v.SetConfigType("yaml")
 	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}
-	var config *ConfigStruct
+	var config *Config2Struct
 	err = v.Unmarshal(&config)
 	if err != nil {
 		panic(err)
 	}
-	Config = config
+	Config2 = config
 }
