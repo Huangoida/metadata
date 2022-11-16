@@ -1,9 +1,10 @@
 package conf
 
 import (
-	"github.com/spf13/viper"
 	"os"
 	"path/filepath"
+
+	"github.com/spf13/viper"
 )
 
 var Config *ConfigStruct
@@ -31,8 +32,10 @@ func ParseConf() {
 	if err != nil {
 		panic(err)
 	}
-	environment := os.Getenv("environment")
+	// environment := os.Getenv("environment")
+	environment := "local"
 	absolutePath := filepath.Join(pwd, "conf", environment+".yaml")
+	println(absolutePath)
 	v.SetConfigFile(absolutePath)
 	v.SetConfigType("yaml")
 	if err := v.ReadInConfig(); err != nil {

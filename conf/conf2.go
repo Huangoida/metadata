@@ -32,8 +32,9 @@ func ParseConf2() {
 	if err != nil {
 		panic(err)
 	}
-	environment := os.Getenv("environment")
-	absolutePath := filepath.Join(pwd, "conf2", environment+".yaml")
+	// environment := os.Getenv("environment")
+	environment := "local2"
+	absolutePath := filepath.Join(pwd, "conf", environment+".yaml")
 	v.SetConfigFile(absolutePath)
 	v.SetConfigType("yaml")
 	if err := v.ReadInConfig(); err != nil {

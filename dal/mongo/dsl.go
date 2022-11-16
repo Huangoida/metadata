@@ -9,7 +9,7 @@ import (
 )
 
 func CreateDslInfo(ctx context.Context, dslInfo model.DslInfoStruct) error {
-	collection := GetMongoDb().Collection("dsl_Info")
+	collection := GetMongoDb().Collection("dslinfo")
 	_, err := collection.InsertOne(ctx, dslInfo)
 	if err != nil {
 		return err
@@ -18,7 +18,7 @@ func CreateDslInfo(ctx context.Context, dslInfo model.DslInfoStruct) error {
 }
 
 func ListDslInfo(ctx context.Context, page, size int, path, name, method, content string, id int64, dslInfoList *[]model.DslInfoStruct) (error, int64) {
-	collection := GetMongoDb().Collection("dsl_Info")
+	collection := GetMongoDb().Collection("dslinfo")
 	var query bson.M
 
 	if path != "" {
