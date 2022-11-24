@@ -11,8 +11,8 @@ import (
 var mysqlDB *gorm.DB
 
 func InitMysqlDb() {
-	dsn := fmt.Sprintf(conf.GetConfMysql().DbTemplate, conf.GetConfMysql().Db.Username, conf.GetConfMysql().Db.Passwd,
-		conf.GetConfMysql().Db.Host, conf.GetConfMysql().Db.Port, conf.GetConfMysql().Db.Database)
+	dsn := fmt.Sprintf(conf.GetConfMysql().DbTemplate, conf.GetConfMysql().Username, conf.GetConfMysql().Passwd,
+		conf.GetConfMysql().Host, conf.GetConfMysql().Port, conf.GetConfMysql().Database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)

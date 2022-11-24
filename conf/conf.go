@@ -7,8 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var ConfigMysql *ConfigStruct
-var ConfigMongo *ConfigStruct
+var ConfigDatabase *ConfigStruct
 
 type DBStruct struct {
 	Host     string
@@ -16,32 +15,30 @@ type DBStruct struct {
 	Username string
 	Passwd   string
 	Database string
-}
 
-type ConfigStruct struct {
-	Db         DBStruct
 	DbTemplate string
 }
 
-func GetConfMysql() *ConfigStruct {
-	return ConfigMysql
+type ConfigStruct struct {
+	Mysql DBStruct
+	Mongo DBStruct
 }
-func GetConfMongo() *ConfigStruct {
-	return ConfigMongo
+
+func GetConfMysql() *DBStruct {
+	return &ConfigDatabase.Mysql
+}
+func GetConfMongo() *DBStruct {
+	return &ConfigDatabase.Mongo
 }
 
 func ParseConf() {
-	PareseConfHelper("env-mysql", "mysql")
-	PareseConfHelper("env-mongo", "mongo")
-}
-
-func PareseConfHelper(env string, db string) {
 	v := viper.New()
 	pwd, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	environment := os.Getenv(env)
+	// os.Setenv("env", "local")
+	environment := os.Getenv("env")
 	absolutePath := filepath.Join(pwd, "conf", environment+".yaml")
 	v.SetConfigFile(absolutePath)
 	v.SetConfigType("yaml")
@@ -49,15 +46,11 @@ func PareseConfHelper(env string, db string) {
 		panic(err)
 	}
 	var config *ConfigStruct
+	print(v)
 	err = v.Unmarshal(&config)
 	if err != nil {
 		panic(err)
 	}
-	if db == "mysql" {
-		ConfigMysql = config
-	}
-	if db == "mongo" {
-		ConfigMongo = config
-	}
 
+	ConfigDatabase = config
 }

@@ -4,8 +4,8 @@ mysql:
   username: root
   passwd: 123456
   database: pokemon
-
-MysqlTemplate: "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local"
+  
+  DbTemplate: "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local"
 
 mongo:
   host: 127.0.0.1
@@ -13,5 +13,5 @@ mongo:
   username: root
   passwd: 123456
   database: pokemon
-
-MongoTemplate: "mongodb://%s:%s@%s:%s/?ssl=false"
+  
+  DbTemplate: "mongodb://%s:%s@%s:%s/?ssl=false"

@@ -13,7 +13,7 @@ import (
 func InitConfig() {
 	conf.ParseConf()
 	mysql.InitMysqlDb()
-	mongo.InitMangoDb()
+	mongo.InitMongoDb()
 	initGlobalLogger()
 }
 
