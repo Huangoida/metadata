@@ -12,9 +12,9 @@ import (
 
 var mongoDB *mongo.Database
 
-func InitMangoDb() {
-	dsn := fmt.Sprintf(conf.GetConfMongo().DbTemplate, conf.GetConfMongo().Db.Username, conf.GetConfMongo().Db.Passwd,
-		conf.GetConfMongo().Db.Host, conf.GetConfMongo().Db.Port)
+func InitMongoDb() {
+	dsn := fmt.Sprintf(conf.GetConfMongo().DbTemplate, conf.GetConfMongo().Username, conf.GetConfMongo().Passwd,
+		conf.GetConfMongo().Host, conf.GetConfMongo().Port)
 
 	println(dsn)
 
@@ -29,7 +29,7 @@ func InitMangoDb() {
 		fmt.Println(err)
 	}
 	fmt.Println("Connected to MongoDB!")
-	mongoDB = client.Database(conf.GetConfMongo().Db.Database)
+	mongoDB = client.Database(conf.GetConfMongo().Database)
 }
 
 func GetMongoDb() *mongo.Database {
