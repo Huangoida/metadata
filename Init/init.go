@@ -1,16 +1,19 @@
 package Init
 
 import (
-	"github.com/sirupsen/logrus"
 	"io"
 	"metadata/conf"
+	"metadata/dal/mongo"
 	"metadata/dal/mysql"
 	"metadata/util"
+
+	"github.com/sirupsen/logrus"
 )
 
 func InitConfig() {
 	conf.ParseConf()
 	mysql.InitMysqlDb()
+	mongo.InitMangoDb()
 	initGlobalLogger()
 }
 

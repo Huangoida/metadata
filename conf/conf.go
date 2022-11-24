@@ -1,14 +1,16 @@
 package conf
 
 import (
-	"github.com/spf13/viper"
 	"os"
 	"path/filepath"
+
+	"github.com/spf13/viper"
 )
 
-var Config *ConfigStruct
+var ConfigMysql *ConfigStruct
+var ConfigMongo *ConfigStruct
 
-type MysqlStruct struct {
+type DBStruct struct {
 	Host     string
 	Port     string
 	Username string
@@ -17,21 +19,29 @@ type MysqlStruct struct {
 }
 
 type ConfigStruct struct {
-	Mysql         MysqlStruct
-	MysqlTemplate string
+	Db         DBStruct
+	DbTemplate string
 }
 
-func GetConf() *ConfigStruct {
-	return Config
+func GetConfMysql() *ConfigStruct {
+	return ConfigMysql
+}
+func GetConfMongo() *ConfigStruct {
+	return ConfigMongo
 }
 
 func ParseConf() {
+	PareseConfHelper("env-mysql", "mysql")
+	PareseConfHelper("env-mongo", "mongo")
+}
+
+func PareseConfHelper(env string, db string) {
 	v := viper.New()
 	pwd, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	environment := os.Getenv("environment")
+	environment := os.Getenv(env)
 	absolutePath := filepath.Join(pwd, "conf", environment+".yaml")
 	v.SetConfigFile(absolutePath)
 	v.SetConfigType("yaml")
@@ -43,5 +53,11 @@ func ParseConf() {
 	if err != nil {
 		panic(err)
 	}
-	Config = config
+	if db == "mysql" {
+		ConfigMysql = config
+	}
+	if db == "mongo" {
+		ConfigMongo = config
+	}
+
 }
