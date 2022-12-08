@@ -1,0 +1,21 @@
+POST http://127.0.0.1:8080/v1/dsl/create
+Content-Type: application/json
+
+{
+    "Content": "{\n\t\"APIs\": [{\n\t\t\t\"BatchIndex\": 0,\n\t\t\t\"Method\": \"GET\",\n\t\t\t\"Name\": \"ping\",\n\t\t\t\"Parameter\": [{\n\t\t\t\t\t\"DefaultValue\": \"string\",\n\t\t\t\t\t\"Key\": \"id\",\n\t\t\t\t\t\"Require\": true,\n\t\t\t\t\t\"Type\": \"query\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"Body\": {\n\t\t\t\t\t\t\"test\": null\n\t\t\t\t\t},\n\t\t\t\t\t\"DefaultValue\": \"string\",\n\t\t\t\t\t\"Key\": \"id\",\n\t\t\t\t\t\"Require\": true,\n\t\t\t\t\t\"Type\": \"body\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"Path\": \"/ping\",\n\t\t\t\"Protocol\": \"http\",\n\t\t\t\"Services\": {\n\t\t\t\t\"Host\": \"127.0.0.1\",\n\t\t\t\t\"Port\": \"8081\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"BatchIndex\": 1,\n\t\t\t\"Headers\": [{\n\t\t\t\t\t\"DefaultValue\": \"token\",\n\t\t\t\t\t\"Key\": \"jwt\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"DefaultValue\": \"application/pdf\",\n\t\t\t\t\t\"Key\": \"Content-Type\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"Method\": \"GET\",\n\t\t\t\"Name\": \"ping1\",\n\t\t\t\"Parameter\": [{\n\t\t\t\t\"DefaultValue\": \"string\",\n\t\t\t\t\"Key\": \"id\",\n\t\t\t\t\"Require\": true,\n\t\t\t\t\"Type\": \"query\"\n\t\t\t}],\n\t\t\t\"ParentApi\": [{\n\t\t\t\t\"DefaultValue\": 0,\n\t\t\t\t\"Key\": \"rewq\",\n\t\t\t\t\"ParentName\": \"ping\",\n\t\t\t\t\"ToKey\": \"ewqe\",\n\t\t\t\t\"ToType\": \"query\"\n\t\t\t}],\n\t\t\t\"Path\": \"/ping1\",\n\t\t\t\"Protocol\": \"http\",\n\t\t\t\"Services\": {\n\t\t\t\t\"Host\": \"127.0.0.1\",\n\t\t\t\t\"Port\": \"8081\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"BatchIndex\": 0,\n\t\t\t\"Method\": \"POST\",\n\t\t\t\"Name\": \"postPing\",\n\t\t\t\"Parameter\": [{\n\t\t\t\t\t\"DefaultValue\": \"12324 \",\n\t\t\t\t\t\"Key\": \"postIds\",\n\t\t\t\t\t\"Require\": true,\n\t\t\t\t\t\"Type\": \"query\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"Body\": {},\n\t\t\t\t\t\"DefaultValue\": \"\",\n\t\t\t\t\t\"Key\": \"\",\n\t\t\t\t\t\"Require\": true,\n\t\t\t\t\t\"Type\": \"json\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"Path\": \"/postPing\",\n\t\t\t\"Protocol\": \"http\",\n\t\t\t\"Services\": {\n\t\t\t\t\"Host\": \"127.0.0.1\",\n\t\t\t\t\"Port\": \"8081\"\n\t\t\t}\n\t\t}\n\t]\n}\n",
+    "Name": "xxxx",
+    "Path": "xxxx",
+    "Method":"GET"
+}
+
+
+
+POST http://127.0.0.1:8080/v1/dsl/create
+Content-Type: application/json
+
+{
+  "Name": "xxxx",
+  "Path": "xxxx",
+   "Method":"GET",
+  "Content": "APIs:\r\n  - BatchIndex: 0\r\n    Method: GET\r\n    Name: ping\r\n    Parameter:\r\n      - DefaultValue: string\r\n        Key: id\r\n        Require: true\r\n        Type: query\r\n      - Body:\r\n          test: null\r\n        DefaultValue: string\r\n        Key: id\r\n        Require: true\r\n        Type: body\r\n    Path: /ping\r\n    Protocol: http\r\n    Services:\r\n      Host: 127.0.0.1\r\n      Port: '8081'\r\n  - BatchIndex: 1\r\n    Headers:\r\n      - DefaultValue: token\r\n        Key: jwt\r\n      - DefaultValue: application/pdf\r\n        Key: Content-Type\r\n    Method: GET\r\n    Name: ping1\r\n    Parameter:\r\n      - DefaultValue: string\r\n        Key: id\r\n        Require: true\r\n        Type: query\r\n    ParentApi:\r\n      - DefaultValue: 0\r\n        Key: rewq\r\n        ParentName: ping\r\n        ToKey: ewqe\r\n        ToType: query\r\n    Path: /ping1\r\n    Protocol: http\r\n    Services:\r\n      Host: 127.0.0.1\r\n      Port: '8081'\r\n  - BatchIndex: 0\r\n    Method: POST\r\n    Name: postPing\r\n    Parameter:\r\n      - DefaultValue: '12324 '\r\n        Key: postIds\r\n        Require: true\r\n        Type: query\r\n      - Body: {}\r\n        DefaultValue: ''\r\n        Key: ''\r\n        Require: true\r\n        Type: json\r\n    Path: /postPing\r\n    Protocol: http\r\n    Services:\r\n      Host: 127.0.0.1\r\n      Port: '8081'"
+}
