@@ -1,0 +1,46 @@
+###
+POST http://127.0.0.1:8080/v1/user/create
+Content-Type: application/json
+
+{
+  "Name": "test0",
+  "Pwd": "127.0.0.1"
+}
+
+###
+###创建第二个用户
+POST http://127.0.0.1:8080/v1/user/create
+Content-Type: application/json
+
+{
+  "Name": "test1",
+  "Pwd": "127.0.0.1"
+}
+###
+
+###创建同名用户
+POST http://127.0.0.1:8080/v1/user/create
+Content-Type: application/json
+
+{
+  "Name": "test1",
+  "Pwd": "127.0.0.1"
+}
+###
+
+###参数错误
+POST http://127.0.0.1:8080/v1/user/create
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+
+Name=test0&Pwd=127.0.0.1
+###
+POST /v1/user/create HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Accept: */*
+Host: 127.0.0.1:8080
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded
+
+Name=test0&Pwd=127.0.0.1
