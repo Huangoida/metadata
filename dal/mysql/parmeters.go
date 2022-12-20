@@ -29,13 +29,16 @@ func CreateParameterTransaction(ctx context.Context, parameters model.Parameters
 	return err
 }
 
-func ListParameter(ctx context.Context, page, size int, apiId, parameterId int64, parameterList *[]model.ParametersStruct) (error, int64) {
+func ListParameter(ctx context.Context, page, size int, apiId, parameterId int64, userId string, parameterList *[]model.ParametersStruct) (error, int64) {
 	query := GetDb().WithContext(ctx).Table("parameters")
 	if apiId != 0 {
 		query = query.Where("api_id = ?", apiId)
 	}
 	if parameterId != 0 {
 		query = query.Where("id = ?", parameterId)
+	}
+	if userId != "" {
+		query = query.Where("user_id = ?", userId)
 	}
 
 	var count int64

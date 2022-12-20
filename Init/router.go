@@ -7,6 +7,7 @@ import (
 	"metadata/handler/Parameters"
 	"metadata/handler/ServicesManage"
 	"metadata/handler/UserManage"
+	"metadata/middleware"
 
 	"metadata/util"
 
@@ -21,28 +22,33 @@ func GinRouter(r *gin.Engine) {
 	v1 := r.Group("/v1")
 	services := v1.Group("/services")
 
+	services.Use(middleware.TokenValidate())
 	services.POST("/create", ServicesManage.Create)
 	services.GET("/list", ServicesManage.List)
 	services.PUT("/update", ServicesManage.Update)
 	services.DELETE("/delete", ServicesManage.Delete)
 
 	api := v1.Group("/API")
+	api.Use(middleware.TokenValidate())
 	api.POST("/create", ApiManage.Create)
 	api.GET("/list", ApiManage.List)
 	api.PUT("/update", ApiManage.Update)
 	api.DELETE("/delete", ApiManage.Delete)
 
 	parameter := v1.Group("/parameters")
+	parameter.Use(middleware.TokenValidate())
 	parameter.POST("/create", Parameters.Create)
 	parameter.GET("/list", Parameters.List)
 	parameter.PUT("/update", Parameters.Update)
 	parameter.DELETE("/delete", Parameters.Delete)
 
 	dsl := v1.Group("/dsl")
+	parameter.Use(middleware.TokenValidate())
 	dsl.POST("/create", DslManage.Create)
 	dsl.GET("/list", DslManage.List)
 
 	user := v1.Group("/user")
+	user.Use(middleware.TokenValidate())
 	user.POST("/create", UserManage.Create)
 	user.GET("/list", UserManage.List)
 	user.PUT("/update", UserManage.Update)

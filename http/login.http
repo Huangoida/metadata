@@ -1,10 +1,5 @@
-POST /v1/login HTTP/1.1
-Host: 127.0.0.1:8080
-User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+POST http://127.0.0.1:8080/v1/login
 Content-Type: application/json
-Accept: */*
-Host: 127.0.0.1:8080
-Connection: keep-alive
 
 {
     "Name": "test0",

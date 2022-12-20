@@ -22,6 +22,7 @@ type UpdateParameterRequest struct {
 }
 
 func Update(c *gin.Context) {
+	userId := c.GetHeader("UserId")
 	var updateParameterRequest UpdateParameterRequest
 	if err := c.ShouldBindQuery(&updateParameterRequest); err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
@@ -29,7 +30,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var parameterList []model.ParametersStruct
-	err, count := mysql.ListParameter(c, 0, 0, updateParameterRequest.ApiId, updateParameterRequest.ParameterId, &parameterList)
+	err, count := mysql.ListParameter(c, 0, 0, updateParameterRequest.ApiId, updateParameterRequest.ParameterId, userId, &parameterList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

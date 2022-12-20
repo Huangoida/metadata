@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/spf13/viper"
 )
 
 var mySecret = []byte("jwt")
@@ -30,7 +29,7 @@ func GenToken(userID int64) (string, error) {
 		userID,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(
-				time.Duration(viper.GetInt("auth.jwt_expire")) * time.Hour).Unix(), // 过期时间
+				time.Duration(24*7) * time.Hour).Unix(), // 过期时间 7天
 			Issuer: "jwt", // 签发人
 		},
 	}

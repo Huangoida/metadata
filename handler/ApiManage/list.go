@@ -11,7 +11,7 @@ import (
 )
 
 func List(c *gin.Context) {
-
+	userId := c.GetHeader("UserId")
 	page, size := util.ValidateOffsetAndPage(c)
 	path := c.Query("Path")
 	serviceIdStr := c.Query("ServiceId")
@@ -43,7 +43,7 @@ func List(c *gin.Context) {
 	method := c.Query("Method")
 	var apiList []model.ApiStruct
 
-	err, count := mysql.ListApi(c, page, size, path, name, method, id, serviceId, &apiList)
+	err, count := mysql.ListApi(c, page, size, path, name, method, userId, id, serviceId, &apiList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

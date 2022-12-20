@@ -9,7 +9,7 @@ func CreateServices(ctx context.Context, services model.ServicesStruct) error {
 	return GetDb().WithContext(ctx).Create(&services).Error
 }
 
-func ListServices(ctx context.Context, page, size int, name, host, port, id string, ServicesList *[]model.ServicesStruct) (error, int64) {
+func ListServices(ctx context.Context, page, size int, name, host, port, id, userId string, ServicesList *[]model.ServicesStruct) (error, int64) {
 	query := GetDb().WithContext(ctx).Table("services")
 	if name != "" {
 		query = query.Where("name = ?", name)
@@ -22,6 +22,9 @@ func ListServices(ctx context.Context, page, size int, name, host, port, id stri
 	}
 	if id != "" {
 		query = query.Where("id = ?", id)
+	}
+	if userId != "" {
+		query = query.Where("user_id = ?", userId)
 	}
 	var count int64
 	if size != 0 && page != 0 {

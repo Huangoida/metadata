@@ -17,7 +17,7 @@ func CreateDslInfo(ctx context.Context, dslInfo model.DslInfoStruct) error {
 	return nil
 }
 
-func ListDslInfo(ctx context.Context, page, size int, path, name, method, content string, id int64, dslInfoList *[]model.DslInfoStruct) (error, int64) {
+func ListDslInfo(ctx context.Context, page, size int, path, name, method, content, userId string, id int64, dslInfoList *[]model.DslInfoStruct) (error, int64) {
 	collection := GetMongoDb().Collection("dsl_info")
 	var query bson.M
 
@@ -25,13 +25,17 @@ func ListDslInfo(ctx context.Context, page, size int, path, name, method, conten
 		query["path"] = path
 	}
 	if name != "" {
-		query[name] = name
+		query["name"] = name
 	}
 	if method != "" {
-		query[method] = method
+		query["method"] = method
 	}
 	if content != "" {
-		query[content] = content
+		query["content"] = content
+	}
+
+	if userId != "" {
+		query["user_id"] = userId
 	}
 
 	if id != 0 {

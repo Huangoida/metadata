@@ -11,6 +11,7 @@ import (
 )
 
 func List(c *gin.Context) {
+	userId := c.GetHeader("UserId")
 	page, size := util.ValidateOffsetAndPage(c)
 	apiIdStr := c.Query("ApiId")
 	if apiIdStr == "" {
@@ -35,7 +36,7 @@ func List(c *gin.Context) {
 		return
 	}
 	var apiList []model.ApiStruct
-	err, count := mysql.ListApi(c, page, size, "", "", "", apiId, 0, &apiList)
+	err, count := mysql.ListApi(c, page, size, "", "", "", userId, apiId, 0, &apiList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
@@ -46,7 +47,7 @@ func List(c *gin.Context) {
 		util.ResponseError(c, 400, constant.SEARCH_NOT_FOUND, "api not found")
 	}
 	var parameterList []model.ParametersStruct
-	err, count = mysql.ListParameter(c, page, size, apiId, parameterId, &parameterList)
+	err, count = mysql.ListParameter(c, page, size, apiId, parameterId, userId, &parameterList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

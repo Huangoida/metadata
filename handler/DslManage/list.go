@@ -12,7 +12,7 @@ import (
 )
 
 func List(c *gin.Context) {
-
+	userId := c.GetHeader("UserId")
 	page, size := util.ValidateOffsetAndPage(c)
 	path := c.Query("Path")
 
@@ -33,7 +33,7 @@ func List(c *gin.Context) {
 	content := c.Query("Content")
 	var dslList []model.DslInfoStruct
 
-	err, count := mongo.ListDslInfo(c, page, size, path, name, method, content, id, &dslList)
+	err, count := mongo.ListDslInfo(c, page, size, path, name, method, content, userId, id, &dslList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

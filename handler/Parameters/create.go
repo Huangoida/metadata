@@ -10,6 +10,7 @@ import (
 	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
+	"strconv"
 )
 
 type CreateParametersRequest struct {
@@ -22,6 +23,7 @@ type CreateParametersRequest struct {
 }
 
 func Create(c *gin.Context) {
+	userIdStr := c.GetHeader("UserId")
 	var parameterRequest CreateParametersRequest
 	if err := c.ShouldBindJSON(&parameterRequest); err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
@@ -39,11 +41,20 @@ func Create(c *gin.Context) {
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 		return
 	}
+
+	userId, err := strconv.ParseInt(userIdStr, 10, 64)
+	if err != nil {
+		logrus.Errorf("parse userId failed %v", err.Error())
+		util.ResponseError(c, 401, constant.USER_INVALID, "user invalid")
+		return
+	}
+
 	parmeter := model.ParametersStruct{
 		Id:      util.GenerateId(),
 		ApiId:   parameterRequest.ApiId,
 		Key:     parameterRequest.Key,
 		Type:    parameterRequest.Type,
+		UserId:  userId,
 		Value:   parameterRequest.Value,
 		Require: parameterRequest.Require,
 		Body:    parameterRequest.Body,

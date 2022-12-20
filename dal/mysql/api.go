@@ -6,14 +6,14 @@ import (
 )
 
 func CreateApi(ctx context.Context, api model.ApiStruct) error {
-	err := GetDb().WithContext(ctx).Debug().Create(&api).Error
+	err := GetDb().WithContext(ctx).Create(&api).Error
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func ListApi(ctx context.Context, page, size int, path, name, method string, id, serviceId int64, apiList *[]model.ApiStruct) (error, int64) {
+func ListApi(ctx context.Context, page, size int, path, name, method, userId string, id, serviceId int64, apiList *[]model.ApiStruct) (error, int64) {
 	query := GetDb().WithContext(ctx).Table("api")
 	if path != "" {
 		query = query.Where("path = ?", name)
@@ -27,6 +27,9 @@ func ListApi(ctx context.Context, page, size int, path, name, method string, id,
 
 	if id != 0 {
 		query = query.Where("id = ?", id)
+	}
+	if userId != "" {
+		query = query.Where("user_id = ?", userId)
 	}
 
 	if serviceId != 0 {

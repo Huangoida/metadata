@@ -1,5 +1,6 @@
 package constant
 
+const USER_INVALID = "user invalid"
 const PARAMETER_INVALID = "Parameters invalid"
 const CREATE_FAILED = "create failed"
 const SEARCH_FAILED = "search failed"

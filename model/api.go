@@ -13,6 +13,7 @@ type ApiStruct struct {
 	Protocol       string         `gorm:"column:protocol"`
 	ConnectTimeout int            `gorm:"column:connect_timeout"`
 	Retries        int            `gorm:"column:retries"`
+	UserId         int64          `gorm:"column:user_id"`
 	Status         string         `gorm:"column:status"`
 	Tags           string         `gorm:"column:tags"`
 	Method         string         `gorm:"column:method"`

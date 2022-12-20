@@ -23,7 +23,7 @@ type ApiUpdateRequest struct {
 }
 
 func Update(c *gin.Context) {
-
+	userId := c.GetHeader("UserId")
 	var apiResponse ApiUpdateRequest
 	if err := c.ShouldBindQuery(&apiResponse); err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
@@ -31,7 +31,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var apiList []model.ApiStruct
-	err, count := mysql.ListApi(c, 0, 0, "", "", "", apiResponse.Id, apiResponse.ServiceId, &apiList)
+	err, count := mysql.ListApi(c, 0, 0, "", "", "", userId, apiResponse.Id, apiResponse.ServiceId, &apiList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

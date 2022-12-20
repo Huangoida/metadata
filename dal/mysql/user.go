@@ -31,7 +31,7 @@ func ListUser(ctx context.Context, page, size int, name, id string, UserList *[]
 		return err, 0
 	}
 
-	if err := query.Debug().Find(&UserList).Error; err != nil {
+	if err := query.Find(&UserList).Error; err != nil {
 		return err, 0
 	}
 	return nil, count

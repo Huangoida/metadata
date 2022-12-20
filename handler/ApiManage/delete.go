@@ -11,7 +11,7 @@ import (
 )
 
 func Delete(c *gin.Context) {
-
+	userId := c.GetHeader("UserId")
 	idstr := c.Query("Id")
 	if idstr == "" {
 		logrus.Errorf("parameter invalid")
@@ -25,7 +25,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 	var apiList []model.ApiStruct
-	err, count := mysql.ListApi(c, 0, 0, "", "", "", id, 0, &apiList)
+	err, count := mysql.ListApi(c, 0, 0, "", "", "", userId, id, 0, &apiList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
