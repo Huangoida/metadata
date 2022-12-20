@@ -1,0 +1,26 @@
+GET http://127.0.0.1:8080/v1/user/list
+
+###
+GET /v1/user/list?Page=0&Size=&Name=test0 HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Accept: */*
+Host: 127.0.0.1:8080
+Connection: keep-alive
+
+
+###
+GET /v1/user/list?Page=0&Size=&Name= HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Accept: */*
+Host: 127.0.0.1:8080
+Connection: keep-alive
+
+###
+GET /v1/user/list?Page=1&Size=2&Name= HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Accept: */*
+Host: 127.0.0.1:8080
+Connection: keep-alive

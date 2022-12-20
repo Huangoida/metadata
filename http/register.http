@@ -1,0 +1,12 @@
+POST /v1/register HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Content-Type: application/json
+Accept: */*
+Host: 127.0.0.1:8080
+Connection: keep-alive
+
+{
+    "Name": "test0",
+    "Pwd": "127.0.0.1"
+}

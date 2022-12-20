@@ -2,9 +2,12 @@ package Init
 
 import (
 	"metadata/handler/ApiManage"
+	common "metadata/handler/Common"
 	"metadata/handler/DslManage"
 	"metadata/handler/Parameters"
 	"metadata/handler/ServicesManage"
+	"metadata/handler/UserManage"
+
 	"metadata/util"
 
 	"github.com/gin-gonic/gin"
@@ -38,4 +41,14 @@ func GinRouter(r *gin.Engine) {
 	dsl := v1.Group("/dsl")
 	dsl.POST("/create", DslManage.Create)
 	dsl.GET("/list", DslManage.List)
+
+	user := v1.Group("/user")
+	user.POST("/create", UserManage.Create)
+	user.GET("/list", UserManage.List)
+	user.PUT("/update", UserManage.Update)
+	user.DELETE("/delete", UserManage.Delete)
+
+	v1.POST("/login", common.Login)
+	v1.POST("/register", common.Register)
+
 }
