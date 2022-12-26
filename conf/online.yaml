@@ -1,14 +1,14 @@
 mysql:
-  host: 127.0.0.1
+  host: 10.96.26.217
   port: 3306
   username: root
-  passwd: 123456
-  database: pokemon
+  passwd: mysql123
+  database: gateway
 
   DbTemplate: "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local"
 
 mongo:
-  host: 127.0.0.1
+  host: 10.96.33.173
   port: 27017
   username: root
   passwd: 123456

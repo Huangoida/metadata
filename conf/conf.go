@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -34,6 +35,7 @@ func GetConfMongo() *DBStruct {
 func ParseConf() {
 	v := viper.New()
 	pwd, err := os.Getwd()
+	fmt.Println(pwd)
 	if err != nil {
 		panic(err)
 	}
