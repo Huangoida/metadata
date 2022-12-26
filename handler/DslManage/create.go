@@ -1,14 +1,14 @@
 package DslManage
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"metadata/constant"
 	"metadata/dal/mongo"
+	"metadata/dal/mysql"
 	"metadata/model"
 	"metadata/util"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 type DSLRequestStruct struct {
@@ -42,6 +42,24 @@ func Create(c *gin.Context) {
 		Content: dslRequest.Content,
 		Method:  dslRequest.Method,
 	}
+
+	userOperate := model.UserDslOperatorStruct{
+		Id:     util.GenerateId(),
+		UserId: userId,
+		Path:   dslRequest.Path,
+		Name:   dslRequest.Name,
+		Method: dslRequest.Method,
+		DslId:  dsl.Id,
+		Status: true,
+	}
+	err = mysql.CreateUserDslOperator(c, userOperate)
+	if err != nil {
+		logrus.Errorf("create user operator failed %v", err.Error())
+		util.ResponseError(c, 500, constant.CREATE_FAILED, "create user operator failed")
+		return
+	}
+
+	dsl.APIId = userOperate.Id
 
 	err = mongo.CreateDslInfo(c, dsl)
 	if err != nil {

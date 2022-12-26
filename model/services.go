@@ -10,6 +10,7 @@ type ServicesStruct struct {
 	Name      string         `gorm:"column:name"`
 	Host      string         `gorm:"column:host"`
 	Port      int            `gorm:"column:port"`
+	Status    bool           `gorm:"column:status"`
 	UserId    int64          `gorm:"column:user_id"`
 	Describes string         `gorm:"describes"`
 	CreatedAt time.Time      `gorm:"created_at;<-:create"`

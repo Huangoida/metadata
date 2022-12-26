@@ -9,6 +9,8 @@ type UserDslOperatorStruct struct {
 	Id        int64          `gorm:"column:id"`
 	UserId    int64          `gorm:"column:user_id"`
 	Path      string         `gorm:"column:path"`
+	Name      string         `gorm:"column:name"`
+	Method    string         `gorm:"column:method"`
 	DslId     int64          `gorm:"column:dsl_id"`
 	Status    bool           `gorm:"column:status"`
 	CreatedAt time.Time      `gorm:"created_at;<-:create"`

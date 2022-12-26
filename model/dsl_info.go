@@ -11,6 +11,7 @@ type DslInfoStruct struct {
 	Name      string         `gorm:"column:name" bson:"name"`
 	Path      string         `gorm:"column:path" bson:"path"`
 	UserId    int64          `bson:"user_id"`
+	APIId     int64          `bson:"api_id"`
 	Content   string         `gorm:"column:content" bson:"content"`
 	Method    string         `gorm:"column:method" bson:"method"`
 	CreatedAt time.Time      `gorm:"created_at;<-:create" bson:"created_at"`

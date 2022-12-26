@@ -35,7 +35,7 @@ func ListServices(ctx context.Context, page, size int, name, host, port, id, use
 		return err, 0
 	}
 
-	if err := query.Debug().Find(&ServicesList).Error; err != nil {
+	if err := query.Find(&ServicesList).Error; err != nil {
 
 		return err, 0
 	}
