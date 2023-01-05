@@ -43,7 +43,7 @@ func GinRouter(r *gin.Engine) {
 	parameter.DELETE("/delete", Parameters.Delete)
 
 	dsl := v1.Group("/dsl")
-	parameter.Use(middleware.TokenValidate())
+	dsl.Use(middleware.TokenValidate())
 	dsl.POST("/create", DslManage.Create)
 	dsl.GET("/list", DslManage.List)
 

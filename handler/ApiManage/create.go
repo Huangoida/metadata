@@ -12,7 +12,7 @@ import (
 
 type APIRequestStruct struct {
 	Path           string `json:"Path" binding:"required"`
-	ServiceId      int64  `json:"ServiceId" binding:"required"`
+	ServiceId      string `json:"ServiceId" binding:"required"`
 	Protocol       string `json:"Protocol" binding:"required"`
 	Name           string `json:"Name" binding:"required"`
 	Tags           string `json:"Tags"`
@@ -36,11 +36,17 @@ func Create(c *gin.Context) {
 		util.ResponseError(c, 401, constant.USER_INVALID, "user invalid")
 		return
 	}
+	serviceIdInt64, err := strconv.ParseInt(apiRequest.ServiceId, 10, 64)
+	if err != nil {
+		logrus.Errorf("parse ServiceId failed %v", err.Error())
+		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
+		return
+	}
 
 	api := model.ApiStruct{
 		Id:             util.GenerateId(),
 		Name:           apiRequest.Name,
-		ServicesId:     apiRequest.ServiceId,
+		ServicesId:     serviceIdInt64,
 		Path:           apiRequest.Path,
 		Protocol:       apiRequest.Protocol,
 		Status:         "disabled",
@@ -58,5 +64,7 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	util.ResponseSuccess(c, "success")
+	util.ResponseSuccess(c, map[string]interface{}{
+		"ApiId": api.Id,
+	})
 }

@@ -13,7 +13,7 @@ import (
 var mongoDB *mongo.Database
 
 func InitMongoDb() {
-	dsn := fmt.Sprintf(conf.GetConfMongo().DbTemplate, conf.GetConfMongo().Username, conf.GetConfMongo().Passwd,
+	dsn := fmt.Sprintf(conf.GetConfMongo().DbTemplate,
 		conf.GetConfMongo().Host, conf.GetConfMongo().Port)
 
 	println(dsn)

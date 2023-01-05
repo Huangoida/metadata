@@ -12,7 +12,7 @@ import (
 
 func Delete(c *gin.Context) {
 	userId := c.GetHeader("UserId")
-	apiIdstr := c.Query("APIId")
+	apiIdstr := c.Query("ApiId")
 	if apiIdstr == "" {
 		logrus.Errorf("parameter invalid")
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")

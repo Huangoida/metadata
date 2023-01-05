@@ -14,4 +14,4 @@ mongo:
   passwd: 123456
   database: pokemon
 
-  DbTemplate: "mongodb://%s:%s@%s:%s/?ssl=false"
+  DbTemplate: "mongodb://%s:%s"

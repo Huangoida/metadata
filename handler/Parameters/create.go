@@ -14,7 +14,7 @@ import (
 )
 
 type CreateParametersRequest struct {
-	ApiId   int64  `json:"ApiId" binding:"required"`
+	ApiId   string `json:"ApiId" binding:"required"`
 	Type    string `json:"Type" binding:"required"`
 	Key     string `json:"Key"`
 	Value   string `json:"Value"`
@@ -30,17 +30,6 @@ func Create(c *gin.Context) {
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 		return
 	}
-	if parameterRequest.Type == "query" {
-		queryTypeDealWith(c, parameterRequest)
-		return
-	}
-	body := make(map[string]interface{})
-	err := json.Unmarshal([]byte(parameterRequest.Body), &body)
-	if err != nil {
-		logrus.Errorf("parameter invalid %v", err.Error())
-		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
-		return
-	}
 
 	userId, err := strconv.ParseInt(userIdStr, 10, 64)
 	if err != nil {
@@ -49,9 +38,28 @@ func Create(c *gin.Context) {
 		return
 	}
 
+	apiId, err := strconv.ParseInt(parameterRequest.ApiId, 10, 64)
+	if err != nil {
+		logrus.Errorf("parse apiId failed %v", err.Error())
+		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
+		return
+	}
+
+	if parameterRequest.Type == "query" {
+		queryTypeDealWith(c, parameterRequest, apiId, userId)
+		return
+	}
+	body := make(map[string]interface{})
+	err = json.Unmarshal([]byte(parameterRequest.Body), &body)
+	if err != nil {
+		logrus.Errorf("parameter invalid %v", err.Error())
+		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
+		return
+	}
+
 	parmeter := model.ParametersStruct{
 		Id:      util.GenerateId(),
-		ApiId:   parameterRequest.ApiId,
+		ApiId:   apiId,
 		Key:     parameterRequest.Key,
 		Type:    parameterRequest.Type,
 		UserId:  userId,
@@ -107,7 +115,7 @@ func getValueType(value interface{}) string {
 	return fmt.Sprintf("%T", value)
 }
 
-func queryTypeDealWith(c *gin.Context, parameterRequest CreateParametersRequest) {
+func queryTypeDealWith(c *gin.Context, parameterRequest CreateParametersRequest, apiId int64, userId int64) {
 	if parameterRequest.Key == "" {
 		logrus.Errorf("parameter invalid")
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
@@ -118,7 +126,8 @@ func queryTypeDealWith(c *gin.Context, parameterRequest CreateParametersRequest)
 	}
 	parmeter := model.ParametersStruct{
 		Id:      util.GenerateId(),
-		ApiId:   parameterRequest.ApiId,
+		UserId:  userId,
+		ApiId:   apiId,
 		Key:     parameterRequest.Key,
 		Type:    parameterRequest.Type,
 		Value:   parameterRequest.Value,

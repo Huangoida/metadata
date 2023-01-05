@@ -51,10 +51,11 @@ func List(c *gin.Context) {
 			"count": i,
 			"res":   nil,
 		})
+		return
 	}
 
 	var dslList []model.DslInfoStruct
-	err, count := mongo.ListDslInfo(c, page, size, path, name, method, content, userIdStr, 0, &dslList)
+	err, count := mongo.ListDslInfo(c, page, size, path, name, method, content, userId, 0, &dslList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
