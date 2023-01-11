@@ -47,6 +47,7 @@ func List(c *gin.Context) {
 		return
 	}
 	if i == 0 {
+		logrus.Debugf("user operator not found")
 		util.ResponseSuccess(c, map[string]interface{}{
 			"count": i,
 			"res":   nil,

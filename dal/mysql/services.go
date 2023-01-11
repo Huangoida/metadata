@@ -27,12 +27,13 @@ func ListServices(ctx context.Context, page, size int, name, host, port, id, use
 		query = query.Where("user_id = ?", userId)
 	}
 	var count int64
+	if err := query.Count(&count).Error; err != nil {
+		return err, 0
+	}
+
 	if size != 0 && page != 0 {
 		offset := (page - 1) * size
 		query = query.Offset(offset).Limit(size)
-	}
-	if err := query.Count(&count).Error; err != nil {
-		return err, 0
 	}
 
 	if err := query.Find(&ServicesList).Error; err != nil {

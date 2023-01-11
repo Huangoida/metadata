@@ -44,13 +44,14 @@ func ListDslInfo(ctx context.Context, page, size int, path, name, method, conten
 	}
 
 	var count int64
+	count, err := collection.CountDocuments(ctx, query)
 	findoptions := options.Find()
 	if size != 0 && page != 0 {
 		offset := (page - 1) * size
 		findoptions.SetLimit(int64(size))
 		findoptions.SetSkip(int64(offset))
-
 	}
+
 	cur, err := collection.Find(ctx, query, findoptions)
 	if err != nil {
 		return err, 0
@@ -62,7 +63,6 @@ func ListDslInfo(ctx context.Context, page, size int, path, name, method, conten
 			return err, 0
 		}
 		*dslInfoList = append(*dslInfoList, elem)
-		count++
 	}
 	defer cur.Close(ctx)
 	return nil, count

@@ -16,8 +16,7 @@ func List(c *gin.Context) {
 	path := c.Query("Path")
 	serviceIdStr := c.Query("ServiceId")
 	if serviceIdStr == "" {
-		logrus.Errorf("parameter invalid ")
-		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
+		serviceIdStr = "0"
 		return
 	}
 	serviceId, err := strconv.ParseInt(serviceIdStr, 10, 64)

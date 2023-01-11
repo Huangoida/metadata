@@ -21,14 +21,13 @@ func ListUser(ctx context.Context, page, size int, name, id string, UserList *[]
 	}
 
 	var count int64
+	if err := query.Count(&count).Error; err != nil {
+		return err, 0
+	}
 
 	if size != 0 && page != 0 {
 		offset := (page - 1) * size
 		query = query.Offset(offset).Limit(size)
-	}
-
-	if err := query.Count(&count).Error; err != nil {
-		return err, 0
 	}
 
 	if err := query.Find(&UserList).Error; err != nil {

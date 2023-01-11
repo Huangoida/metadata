@@ -31,19 +31,20 @@ func ListUserDslOperator(ctx context.Context, page, size int, id, userId, dslId 
 
 	if status != "" {
 		if status == constant.BOOLEAN_FALSE {
-			query = query.Where("status = true")
-		} else if status == constant.BOOLEAN_TRUE {
 			query = query.Where("status = false")
+		} else if status == constant.BOOLEAN_TRUE {
+			query = query.Where("status = true")
 		}
 	}
 
 	var count int64
+	if err := query.Count(&count).Error; err != nil {
+		return err, 0
+	}
+
 	if size != 0 && page != 0 {
 		offset := (page - 1) * size
 		query = query.Offset(offset).Limit(size)
-	}
-	if err := query.Count(&count).Error; err != nil {
-		return err, 0
 	}
 
 	if err := query.Debug().Find(&userOperator).Error; err != nil {

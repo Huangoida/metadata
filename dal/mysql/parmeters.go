@@ -42,12 +42,13 @@ func ListParameter(ctx context.Context, page, size int, apiId, parameterId int64
 	}
 
 	var count int64
+	if err := query.Count(&count).Error; err != nil {
+		return err, 0
+	}
+
 	if size != 0 && page != 0 {
 		offset := (page - 1) * size
 		query = query.Offset(offset).Limit(size)
-	}
-	if err := query.Count(&count).Error; err != nil {
-		return err, 0
 	}
 
 	if err := query.Find(&parameterList).Error; err != nil {
