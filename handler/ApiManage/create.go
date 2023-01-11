@@ -42,6 +42,18 @@ func Create(c *gin.Context) {
 		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "parameter invalid")
 		return
 	}
+	var services []model.ServicesStruct
+	err, count := mysql.ListServices(c, 0, 0, "", "", "", userIdStr, []string{apiRequest.ServiceId}, &services)
+	if err != nil {
+		logrus.Errorf("search services failed %v", err.Error())
+		util.ResponseError(c, 500, constant.CREATE_FAILED, "search services failed")
+		return
+	}
+	if count == 0 {
+		logrus.Errorf("parse ServiceId failed %v", err.Error())
+		util.ResponseError(c, 401, constant.PARAMETER_INVALID, "ServiceId not found")
+		return
+	}
 
 	api := model.ApiStruct{
 		Id:             util.GenerateId(),

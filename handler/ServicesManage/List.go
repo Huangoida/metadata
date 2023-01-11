@@ -17,7 +17,7 @@ func List(c *gin.Context) {
 	port := c.Query("Port")
 	id := c.Query("Id")
 	var servicesList []model.ServicesStruct
-	err, count := mysql.ListServices(c, page, size, name, hostName, port, id, userId, &servicesList)
+	err, count := mysql.ListServices(c, page, size, name, hostName, port, userId, []string{id}, &servicesList)
 	if err != nil {
 		logrus.Errorf("parameter invalid %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")

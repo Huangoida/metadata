@@ -35,8 +35,9 @@ func ListApi(ctx context.Context, page, size int, path, name, method, userId str
 	if serviceId != 0 {
 		query = query.Where("services_id = ?", serviceId)
 	}
+	query.Where("deleted IS NULL")
 	var count int64
-	if err := query.Count(&count).Error; err != nil {
+	if err := query.Debug().Count(&count).Error; err != nil {
 		return err, 0
 	}
 

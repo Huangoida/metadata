@@ -19,9 +19,9 @@ func Delete(c *gin.Context) {
 	}
 
 	var servicesList []model.ServicesStruct
-	err, count := mysql.ListServices(c, 0, 0, "", "", "", idstr, userId, &servicesList)
+	err, count := mysql.ListServices(c, 0, 0, "", "", "", userId, []string{idstr}, &servicesList)
 	if err != nil {
-		logrus.Errorf("search failed %v", err.Error())
+		logrus.Errorf("search service failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
 		return
 	}
@@ -30,6 +30,14 @@ func Delete(c *gin.Context) {
 		return
 	}
 	services := servicesList[0]
+	var apiList []model.ApiStruct
+	err, count = mysql.ListApi(c, 0, 0, "", "", "", userId, 0, services.Id, &apiList)
+	if err != nil {
+		logrus.Errorf("search api failed %v", err.Error())
+		util.ResponseError(c, 500, constant.DELETE_FAILED, "delete failed")
+		return
+	}
+
 	err = mysql.DeleteServices(c, services)
 	if err != nil {
 		logrus.Errorf("delete failed %v", err.Error())

@@ -27,7 +27,7 @@ func Update(c *gin.Context) {
 		return
 	}
 	var servicesList []model.ServicesStruct
-	err, count := mysql.ListServices(c, 0, 0, "", "", "", strconv.FormatInt(servicesResponse.Id, 10), userId, &servicesList)
+	err, count := mysql.ListServices(c, 0, 0, "", "", "", userId, []string{strconv.FormatInt(servicesResponse.Id, 10)}, &servicesList)
 	if err != nil {
 		logrus.Errorf("search failed %v", err.Error())
 		util.ResponseError(c, 500, constant.SEARCH_FAILED, "search failed")
