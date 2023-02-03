@@ -21,6 +21,7 @@ func GinRouter(r *gin.Engine) {
 
 	v1 := r.Group("/v1")
 	services := v1.Group("/services")
+	inner := v1.Group("/inner")
 
 	services.Use(middleware.TokenValidate())
 	services.POST("/create", ServicesManage.Create)
@@ -46,6 +47,7 @@ func GinRouter(r *gin.Engine) {
 	dsl.Use(middleware.TokenValidate())
 	dsl.POST("/create", DslManage.Create)
 	dsl.GET("/list", DslManage.List)
+	inner.GET("/dsl/list", DslManage.InnerList)
 
 	user := v1.Group("/user")
 	user.Use(middleware.TokenValidate())
