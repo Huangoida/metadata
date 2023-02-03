@@ -22,7 +22,9 @@ func ListServices(ctx context.Context, page, size int, name, host, port, userId 
 		query = query.Where("port = ?", port)
 	}
 	if len(id) != 0 {
-		query = query.Where("id IN ?", id)
+		if len(id) == 1 && id[0] != "" {
+			query = query.Where("id IN ?", id)
+		}
 	}
 	if userId != "" {
 		query = query.Where("user_id = ?", userId)
